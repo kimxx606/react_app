@@ -1,4 +1,4 @@
-# Intellytics AI Agent - React 버전
+# Agent- React 버전
 
 이 프로젝트는 Streamlit 기반의 Intellytics AI Agent를 React로 재구현한 버전입니다. 사용자가 AI와 대화형으로 소통할 수 있는 채팅 인터페이스를 제공하며, 다양한 AI 분석 서비스와 연동됩니다.
 
