@@ -445,6 +445,30 @@
   cursor: not-allowed;
 }
 
+.sidebar-menu {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.sidebar-menu li {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
+}
+
+.sidebar-menu li:hover {
+  background-color: #f3f3f3;
+}
+
+.sidebar-menu li.active {
+  background-color: #A50034;
+  color: white;
+  font-weight: bold;
+}
+
 /* 반응형 스타일 */
 @media (max-width: 768px) {
   .content {
