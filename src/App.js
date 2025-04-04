@@ -15,10 +15,12 @@ function App() {
       <div className="content">
         <Sidebar serviceId={serviceId} />
         <main className="main-content">
+          <h1> test </h1>
           <ChatInterface serviceId={serviceId} />
         </main>
       </div>
     </div>
+
   );
 }
 
