@@ -5,7 +5,7 @@ import ChatInput from './ChatInput';
 import SampleQuestions from './SampleQuestions';
 import Spinner from '../UI/Spinner';
 
-const ChatInterface = ({ serviceId }) => {
+const ChatInterface = ({ serviceId, SidebarContent }) => {
   const SERVICE_NAME = "Sample B";
   const SERVICE_DESCRIPTION = "AI와 대화하며 다양한 질문에 대한 답변을 받아보세요.";
 
@@ -33,34 +33,42 @@ const ChatInterface = ({ serviceId }) => {
         <p className="service-description">{SERVICE_DESCRIPTION}</p>
       </div>
 
-      {/* 대표 질문 (초기 화면에만 표시) */}
-      {(
-        <SampleQuestions
-          questions={SAMPLE_QUESTIONS}
-          onSelectQuestion={handleSampleQuestion}
-          isLoading={isLoading}
-        />
-      )}
+      <div className="chat-main-area">
+        {/* 💬 채팅 메시지 영역 */}
+        <div className="chat-container" ref={chatContainerRef}>
+          {(
+            <SampleQuestions
+              questions={SAMPLE_QUESTIONS}
+              onSelectQuestion={handleSampleQuestion}
+              isLoading={isLoading}
+            />
+          )}
 
-      {/* 💬 채팅 메시지 영역 */}
-      <div className="chat-container" ref={chatContainerRef}>
-        {messages.map((message, index) => (
-          <ChatMessage
-            key={index}
-            role={message.role}
-            content={message.content}
-            isError={message.isError}
-          />
-        ))}
+          {messages.map((message, index) => (
+            <ChatMessage
+              key={index}
+              role={message.role}
+              content={message.content}
+              isError={message.isError}
+            />
+          ))}
 
-        {isLoading && (
-          <div className="loading-message">
-            <Spinner />
+          {isLoading && (
+            <div className="loading-message">
+              <Spinner />
+            </div>
+          )}
+
+          {/* 자동 스크롤 포인트 */}
+          <div ref={bottomRef} />
+        </div>
+
+        {/* 🔧 각 페이지 전용 사이드바 내용 (선택적 렌더링) */}
+        {SidebarContent && (
+          <div className="chat-sidebar-extra">
+            {SidebarContent}
           </div>
         )}
-
-        {/* 자동 스크롤 포인트 */}
-        <div ref={bottomRef} />
       </div>
 
       {/* 🧾 입력창: 항상 하단 고정 */}
