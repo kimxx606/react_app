@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useSession } from '../../contexts/SessionContext';
 import LanguageSelector from '../UI/LanguageSelector';
 import ResetButton from '../UI/ResetButton';
-import { SidebarPage1Extra, SidebarPage2Extra } from '../Chat/ChatInterface';
+import { SidebarB2BQueryExtra, SidebarD2CExtra } from '../B2B/Service_B2B_Query';
 
 const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
   const { sessionState } = useSession();
-  const [isPage2MenuOpen, setIsPage2MenuOpen] = useState(activePage === 'page2-workspace' || activePage === 'page2-account');
+  const [isPage2MenuOpen, setIsPage2MenuOpen] = useState(activePage === 'page-d2c-main' || activePage === 'page-d2c-sales' || activePage === 'page-d2c-account');
   
   // 사이드바 안내 정보
   const SIDEBAR_SEARCHING_GUIDE = `
@@ -18,13 +18,12 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
   const handlePage2Click = () => {
     // 하위 메뉴 토글 (펼치거나 접기)
     setIsPage2MenuOpen(!isPage2MenuOpen);
-    // 현재 메뉴가 활성화되어 있지 않은 경우에만 페이지 이동
-    if (!isPage2Active) {
-      onSelectPage('page2-workspace');
-    }
+    // D2C 메인 페이지로 이동
+    onSelectPage('page-d2c-main');
   };
 
-  const isPage2Active = activePage === 'page2-workspace' || activePage === 'page2-account';
+  const isPage2Active = activePage === 'page-d2c-main' || activePage === 'page-d2c-sales' || activePage === 'page-d2c-account';
+  const isPage2Active_sub = activePage === 'page-d2c-sales' || activePage === 'page-d2c-account';
 
   return (
     <aside className="sidebar">
@@ -36,8 +35,8 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
       <div className="sidebar-section service-menu">
         <ul className="sidebar-menu">
           <li
-            className={activePage === 'page1' ? 'active' : ''}
-            onClick={() => onSelectPage('page1')}
+            className={activePage === 'page-b2b-query' ? 'active' : ''}
+            onClick={() => onSelectPage('page-b2b-query')}
           >
             B2B Query
           </li>
@@ -59,17 +58,19 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
               <div className={`submenu ${isPage2MenuOpen ? 'open' : ''}`}>
                 <ul>
                   <li 
-                    className={activePage === 'page2-workspace' ? 'active' : ''}
+                    className={activePage === 'page-d2c-sales' ? 'active' : ''}
                     onClick={(e) => {
-                      onSelectPage('page2-workspace');
+                      e.stopPropagation(); // 상위 메뉴 클릭 이벤트 전파 방지
+                      onSelectPage('page-d2c-sales');
                     }}
                   >
                     Workspace
                   </li>
                   <li 
-                    className={activePage === 'page2-account' ? 'active' : ''}
+                    className={activePage === 'page-d2c-account' ? 'active' : ''}
                     onClick={(e) => {
-                      onSelectPage('page2-account');
+                      e.stopPropagation(); // 상위 메뉴 클릭 이벤트 전파 방지
+                      onSelectPage('page-d2c-account');
                     }}
                   >
                     Account
@@ -89,27 +90,29 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
         />
       </div> */}
 
-      {/* 설정 영역 */}
-      <div className="sidebar-section settings">
-        <h3>설정</h3>
-        <div className="setting-item">
-          <LanguageSelector serviceId={serviceId} />
+      {/* 설정 영역 - B2B Query 또는 DX Automation for D2C의 하위 메뉴가 선택되었을 때 표시 */}
+      {(activePage === 'page-b2b-query' || isPage2Active_sub) && (
+        <div className="sidebar-section settings">
+          <h3>설정</h3>
+          <div className="setting-item">
+            <LanguageSelector serviceId={serviceId} />
+          </div>
+          <div className="setting-item">
+            <ResetButton serviceId={serviceId} />
+          </div>
         </div>
-        <div className="setting-item">
-          <ResetButton serviceId={serviceId} />
-        </div>
-      </div>
+      )}
 
       {/* 각 페이지에 해당하는 사이드바 내용 표시 */}
-      {activePage === 'page1' && (
-        <div className="sidebar-section page1-extra">
-          <SidebarPage1Extra />
+      {activePage === 'page-b2b-query' && (
+        <div className="sidebar-section page-b2b-query-extra">
+          <SidebarB2BQueryExtra />
         </div>
       )}
       
-      {isPage2Active && (
-        <div className="sidebar-section page2-extra">
-          <SidebarPage2Extra />
+      {activePage === 'page-d2c-sales' && (
+        <div className="sidebar-section page-d2c-extra">
+          <SidebarD2CExtra />
         </div>
       )}
     </aside>

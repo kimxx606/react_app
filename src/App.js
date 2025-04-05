@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
 import Header from './components/Layout/Header';
 import Sidebar from './components/Layout/Sidebar';
-import ChatInterface from './components/Chat/ChatInterface';
+import Service_B2B_Query from './components/B2B/Service_B2B_Query';
 import D2CMainPage from './components/D2C/D2CMainPage';
-import WorkspacePage from './components/D2C/WorkspacePage';
+import Service_D2C_Sales from './components/D2C/Service_D2C_Sales';
 import AccountPage from './components/D2C/AccountPage';
 import MainPage from './components/MainPage/MainPage';
 import './styles/App.css';
 
 function App() {
-  const [activePage, setActivePage] = useState('home');
+  const [activePage, setActivePage] = useState('page-main');
 
   const handleNavigateToMain = () => {
-    setActivePage('home');
+    setActivePage('page-main');
   };
 
   const getCurrentPageComponent = () => {
     switch(activePage) {
-      case 'home':
+      case 'page-main':
         return <MainPage />;
-      case 'page1':
-        return <ChatInterface serviceId="page1" />;
-      case 'page2-workspace':
-        return <WorkspacePage />;
-      case 'page2-account':
-        return <AccountPage />;
+      case 'page-b2b-query':
+        return <Service_B2B_Query serviceId="page-b2b-query" />;
+      case 'page-d2c-main':
+        return <D2CMainPage serviceId="page-d2c-main" />;
+      case 'page-d2c-sales':
+        return <Service_D2C_Sales serviceId="page-d2c-sales" />;
+      case 'page-d2c-account':
+        return <AccountPage serviceId="page-d2c-account" />;
       default:
         return <MainPage />;
     }

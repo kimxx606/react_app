@@ -1,63 +1,92 @@
 import React from 'react';
 import './D2CMainPage.css';
 
+// 제목과 부제목, 섹션 제목들을 상수로 분리하여 정의하고 내보냅니다
+export const PAGE_TITLE = "DX Automation for D2C";
+export const PAGE_SUBTITLE = "D2C 매출 현황 및 원인 분석 도구";
+
+// 섹션 제목들도 상수로 분리
+export const SECTION_TITLES = {
+  SERVICE_OVERVIEW: "서비스 개요",
+  MAIN_FEATURES: "주요 기능"
+};
+
+// 푸터 정보를 상수로 분리
+export const FOOTER_INFO = "© 2025 Intellytics AI Agent | 버전 1.0.0 | DX센터 AI빅데이터담당 AX기술팀";
+
+// 서비스 설명을 상수로 분리
+export const SERVICE_DESCRIPTION = 
+  "해외법인에서 운영하는 OBS (Online Brand Shop)에서 수집되는 매출 및 고객웹행동 데이터를 기반으로 " +
+  "매출현황과 판매량을 법인전체/제품군/모델 단위로 파악하고, 매출하락 등의 이슈에 대한 원인을 OBS Funnel 단계 " +
+  "및 OBS 유입 채널 관점에서 파악하고 해결방안을 제시합니다.";
+
+// 서비스 기능 카드 데이터를 상수로 분리
+export const FEATURE_CARDS = [
+  {
+    icon: "📊",
+    title: "Sales Status",
+    description: [
+      "법인전체 매출현황/판매량 파악",
+      "제품군별 매출현황/판매량 파악",
+      "모델별 매출현황/판매량 파악",
+      "기간 단위(일, 주, 월, 년)별 집계 및 비교"
+    ]
+  },
+  {
+    icon: "🔍",
+    title: "Fallout Analysis",
+    description: [
+      "OBS Funnel 단계 관점 원인 분석",
+      "OBS 유입 채널 관점 원인 분석",
+      "주요 원인 별 해결방안 제시"
+    ]
+  }
+];
+
 const D2CMainPage = () => {
+  // 기능 카드 표시 여부
+  const showFeatureCards = true;
+
   return (
     <div className="d2c-main-page">
       <div className="page-header">
-        <h1>DX Automation for D2C</h1>
-        <p className="subtitle">데이터 기반 고객 관계 자동화 솔루션</p>
+        <h1>{PAGE_TITLE}</h1>
+        <p className="subtitle">{PAGE_SUBTITLE}</p>
       </div>
 
       <div className="feature-section">
-        <h2>주요 기능</h2>
+        <h2>{SECTION_TITLES.SERVICE_OVERVIEW}</h2>
+        <div className="service-description-container">
+          <p className="service-description">{SERVICE_DESCRIPTION}</p>
+          <div className="service-tags">
+            <span className="service-tag">매출 분석</span>
+            <span className="service-tag">OBS Funnel</span>
+            <span className="service-tag">원인 분석</span>
+            <span className="service-tag">해결방안 제시</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="feature-section">
+        <h2>{SECTION_TITLES.MAIN_FEATURES}</h2>
         <div className="feature-grid">
-          <div className="feature-card">
-            <div className="icon">📊</div>
-            <h3>고객 데이터 통합</h3>
-            <p>다양한 소스의 고객 데이터를 통합하여 단일 뷰에서 관리할 수 있습니다.</p>
-          </div>
-          <div className="feature-card">
-            <div className="icon">🔄</div>
-            <h3>자동화 워크플로우</h3>
-            <p>복잡한 고객 여정을 자동화하여 효율적인 마케팅 운영이 가능합니다.</p>
-          </div>
-          <div className="feature-card">
-            <div className="icon">📱</div>
-            <h3>옴니채널 경험</h3>
-            <p>모든 접점에서 일관된 고객 경험을 제공하도록 설계되었습니다.</p>
-          </div>
-          <div className="feature-card">
-            <div className="icon">🧠</div>
-            <h3>AI 기반 분석</h3>
-            <p>고급 AI 알고리즘을 활용하여 고객 행동을 예측하고 인사이트를 도출합니다.</p>
-          </div>
+          {FEATURE_CARDS.map((card, index) => (
+            <div className="feature-card" key={index}>
+              <div className="icon">{card.icon}</div>
+              <h3>{card.title}</h3>
+              <ul className="feature-list">
+                {card.description.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="stats-section">
-        <h2>효과적인 D2C 전략</h2>
-        <div className="stats-container">
-          <div className="stat-item">
-            <span className="stat-value">42%</span>
-            <span className="stat-label">고객 유지율 증가</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-value">3.5x</span>
-            <span className="stat-label">ROI 향상</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-value">67%</span>
-            <span className="stat-label">마케팅 자동화 효율</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="demo-section">
-        <h2>지금 시작해보세요</h2>
-        <p>DX Automation for D2C 솔루션으로 고객 중심의 비즈니스 혁신을 경험해보세요.</p>
-        <button className="demo-button">데모 요청하기</button>
-      </div>
+      <footer className="page-footer">
+        <p>{FOOTER_INFO}</p>
+      </footer>
     </div>
   );
 };
