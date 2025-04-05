@@ -27,6 +27,10 @@ import Service_SG_Generation from './components/SurveyGenius/Service_SG_Generati
 import { SidebarSGGenerationExtra } from './components/SurveyGenius/Service_SG_Generation';
 import Service_VOC_Analysis from './components/VOCAnalysis/Service_VOC_Analysis';
 import { SidebarVOCAnalysisExtra } from './components/VOCAnalysis/Service_VOC_Analysis';
+import Service_Chatbot_Generation from './components/ChatbotGeneration/Service_Chatbot_Generation';
+import { SidebarChatbotGenerationExtra } from './components/ChatbotGeneration/Service_Chatbot_Generation';
+import Service_Your_Chatbot from './components/YourChatbot/Service_Your_Chatbot';
+import { SidebarYourChatbotExtra } from './components/YourChatbot/Service_Your_Chatbot';
 import MainPage from './components/MainPage/MainPage';
 import './styles/App.css';
 
@@ -71,6 +75,10 @@ function App() {
         return <Service_SG_Generation serviceId="sg-generation" />;
       case 'page-voc-analysis':
         return <Service_VOC_Analysis serviceId="voc-analysis" />;
+      case 'page-chatbot-generation':
+        return <Service_Chatbot_Generation serviceId="chatbot-generation" />;
+      case 'page-your-chatbot':
+        return <Service_Your_Chatbot serviceId="your-chatbot" />;
       default:
         return <MainPage />;
     }

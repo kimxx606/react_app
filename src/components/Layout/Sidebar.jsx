@@ -13,6 +13,8 @@ import { SidebarMelleriSearchSearchExtra } from '../MelleriSearch/Service_Meller
 import { SidebarSGAnalysisExtra } from '../SurveyGenius/Service_SG_Analysis';
 import { SidebarSGGenerationExtra } from '../SurveyGenius/Service_SG_Generation';
 import { SidebarVOCAnalysisExtra } from '../VOCAnalysis/Service_VOC_Analysis';
+import { SidebarChatbotGenerationExtra } from '../ChatbotGeneration/Service_Chatbot_Generation';
+import { SidebarYourChatbotExtra } from '../YourChatbot/Service_Your_Chatbot';
 
 const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
   const { sessionState } = useSession();
@@ -255,6 +257,28 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
         </ul>
       </div>
 
+      <div className="sidebar-header">
+        <h2>TOOL</h2>
+      </div>
+
+      {/* TOOL 아래 메뉴 */}
+      <div className="sidebar-section tool-menu">
+        <ul className="sidebar-menu">
+          <li
+            className={activePage === 'page-chatbot-generation' ? 'active' : ''}
+            onClick={() => onSelectPage('page-chatbot-generation')}
+          >
+            Chatbot Generation
+          </li>
+          <li
+            className={activePage === 'page-your-chatbot' ? 'active' : ''}
+            onClick={() => onSelectPage('page-your-chatbot')}
+          >
+            Your Chatbot
+          </li>
+        </ul>
+      </div>
+
       {/* 안내 텍스트 */}
       {/* <div className="sidebar-section guide">
         <div
@@ -264,7 +288,7 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
       </div> */}
 
       {/* 설정 영역 - B2B Query 또는 DX Automation for D2C의 하위 메뉴가 선택되었을 때 표시 */}
-      {(activePage === 'page-b2b-query' || isPage2Active_sub || isHRDXActive_sub || activePage === 'page-mellerikat-assistant' || isMelleriSearchActive_sub || isSGActive_sub || activePage === 'page-voc-analysis') && (
+      {(activePage === 'page-b2b-query' || isPage2Active_sub || isHRDXActive_sub || activePage === 'page-mellerikat-assistant' || isMelleriSearchActive_sub || isSGActive_sub || activePage === 'page-voc-analysis' || activePage === 'page-chatbot-generation' || activePage === 'page-your-chatbot') && (
         <div className="sidebar-section settings">
           <h3>설정</h3>
           <div className="setting-item">
@@ -277,6 +301,8 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
               activePage === 'page-sg-analysis' ? 'sg-analysis' : 
               activePage === 'page-sg-generation' ? 'sg-generation' : 
               activePage === 'page-voc-analysis' ? 'voc-analysis' : 
+              activePage === 'page-chatbot-generation' ? 'chatbot-generation' : 
+              activePage === 'page-your-chatbot' ? 'your-chatbot' : 
               serviceId
             } />
           </div>
@@ -290,6 +316,8 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
               activePage === 'page-sg-analysis' ? 'sg-analysis' : 
               activePage === 'page-sg-generation' ? 'sg-generation' : 
               activePage === 'page-voc-analysis' ? 'voc-analysis' : 
+              activePage === 'page-chatbot-generation' ? 'chatbot-generation' : 
+              activePage === 'page-your-chatbot' ? 'your-chatbot' : 
               serviceId
             } />
           </div>
@@ -306,6 +334,18 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
       {activePage === 'page-voc-analysis' && (
         <div className="sidebar-section page-voc-analysis-extra">
           <SidebarVOCAnalysisExtra />
+        </div>
+      )}
+      
+      {activePage === 'page-chatbot-generation' && (
+        <div className="sidebar-section page-chatbot-generation-extra">
+          <SidebarChatbotGenerationExtra />
+        </div>
+      )}
+      
+      {activePage === 'page-your-chatbot' && (
+        <div className="sidebar-section page-your-chatbot-extra">
+          <SidebarYourChatbotExtra />
         </div>
       )}
       
@@ -362,9 +402,7 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
           <SidebarSGGenerationExtra />
         </div>
       )}
-      <div className="sidebar-header">
-        <h2>TOOL</h2>
-      </div>
+
     </aside>
   );
 };
