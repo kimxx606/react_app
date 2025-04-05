@@ -4,10 +4,11 @@ import ChatMessage from '../Chat/ChatMessage';
 import ChatInput from '../Chat/ChatInput';
 import SampleQuestions from '../Chat/SampleQuestions';
 import Spinner from '../UI/Spinner';
+import '../ServiceCommon.css';
 
 // 샘플 페이지별 사이드바 내용
 export const SidebarB2BQueryExtra = () => (
-  <div className="sidebar-b2b-query-extra">
+  <div className="sidebar-b2b-query-extra sidebar-extra-content">
     <h3>Intellytics 분석 가이드</h3>
     <ul>
       <li>NPS 점수 해석법</li>
@@ -26,31 +27,6 @@ export const SidebarB2BQueryExtra = () => (
         <a href="#" className="report-link">고객 피드백 요약</a>
         <a href="#" className="report-link">VOC 분석 대시보드</a>
       </div>
-    </div>
-  </div>
-);
-
-export const SidebarD2CExtra = () => (
-  <div className="sidebar-d2c-extra">
-    <h3>D2C 분석 팁</h3>
-    <ul>
-      <li>이탈 고객 패턴 분석</li>
-      <li>프로모션 효과 분석</li>
-      <li>고객 세그먼트 전략</li>
-    </ul>
-    <div className="d2c-extra-info">
-      <h4>D2C 분석 방법론</h4>
-      <p>고객 데이터를 활용한 인사이트 도출 방법을 알아보세요.</p>
-      <p>고객 행동 패턴을 분석하여 마케팅 전략을 최적화할 수 있습니다.</p>
-    </div>
-    <div className="d2c-extra-tools">
-      <h4>추천 분석 도구</h4>
-      <div className="tool-badges">
-        <span className="tool-badge">Python</span>
-        <span className="tool-badge">R</span>
-        <span className="tool-badge">Tableau</span>
-      </div>
-      <p>다양한 데이터 분석 도구를 활용하여 더 깊은 인사이트를 얻을 수 있습니다.</p>
     </div>
   </div>
 );
@@ -158,7 +134,7 @@ B2B Query는 DB 탐색 특화 모델로써, 3대 전환 지수뿐 아니라 정�
   } = useChat(serviceId);
 
   return (
-    <div className="chat-interface">
+    <div className="service-container">
       {/* 상단 제목 */}
       <div className="service-header">
         <h2 className="main-title">{SERVICE_NAME}</h2>

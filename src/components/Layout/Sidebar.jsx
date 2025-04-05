@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useSession } from '../../contexts/SessionContext';
 import LanguageSelector from '../UI/LanguageSelector';
 import ResetButton from '../UI/ResetButton';
-import { SidebarB2BQueryExtra, SidebarD2CExtra } from '../B2B/Service_B2B_Query';
+import { SidebarB2BQueryExtra } from '../B2B/Service_B2B_Query';
+import { SidebarD2CExtra } from '../D2C/Service_D2C_Sales';
+import { SidebarD2CFalloutExtra } from '../D2C/Service_D2C_Fallout';
 
 const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
   const { sessionState } = useSession();
@@ -11,8 +13,6 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
   // 사이드바 안내 정보
   const SIDEBAR_SEARCHING_GUIDE = `
     <p>이 서비스를 통해 다양한 질문을 할 수 있습니다.</p>
-    <p>질문을 입력하거나 대표 질문을 선택하여 시작하세요.</p>
-    <p><strong>원하는 정보를 구체적으로 요청할수록 더 정확한 답변을 받을 수 있습니다.</strong></p>
   `;
 
   const handlePage2Click = () => {
@@ -64,7 +64,7 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
                       onSelectPage('page-d2c-sales');
                     }}
                   >
-                    Workspace
+                    D2C - Sales Status
                   </li>
                   <li 
                     className={activePage === 'page-d2c-account' ? 'active' : ''}
@@ -73,7 +73,7 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
                       onSelectPage('page-d2c-account');
                     }}
                   >
-                    Account
+                    D2C - Fallout Analysis
                   </li>
                 </ul>
               </div>
@@ -113,6 +113,12 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
       {activePage === 'page-d2c-sales' && (
         <div className="sidebar-section page-d2c-extra">
           <SidebarD2CExtra />
+        </div>
+      )}
+      
+      {activePage === 'page-d2c-account' && (
+        <div className="sidebar-section page-d2c-fallout-extra">
+          <SidebarD2CFalloutExtra />
         </div>
       )}
     </aside>

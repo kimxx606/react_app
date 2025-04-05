@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import Header from './components/Layout/Header';
 import Sidebar from './components/Layout/Sidebar';
 import Service_B2B_Query from './components/B2B/Service_B2B_Query';
+import { SidebarB2BQueryExtra } from './components/B2B/Service_B2B_Query';
 import D2CMainPage from './components/D2C/D2CMainPage';
 import Service_D2C_Sales from './components/D2C/Service_D2C_Sales';
-import AccountPage from './components/D2C/AccountPage';
+import { SidebarD2CExtra } from './components/D2C/Service_D2C_Sales';
+import Service_D2C_Fallout from './components/D2C/Service_D2C_Fallout';
+import { SidebarD2CFalloutExtra } from './components/D2C/Service_D2C_Fallout';
 import MainPage from './components/MainPage/MainPage';
 import './styles/App.css';
 
@@ -26,7 +29,7 @@ function App() {
       case 'page-d2c-sales':
         return <Service_D2C_Sales serviceId="page-d2c-sales" />;
       case 'page-d2c-account':
-        return <AccountPage serviceId="page-d2c-account" />;
+        return <Service_D2C_Fallout serviceId="page-d2c-account" />;
       default:
         return <MainPage />;
     }

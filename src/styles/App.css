@@ -638,8 +638,8 @@
 
 /* D2C extra 섹션 스타일 */
 .sidebar-section.page-d2c-extra {
-  background-color: #f5f0f2;
-  border-left: 4px solid #A50034;
+  background-color: #f5f0f2; 
+  /* border-left: 4px solid #A50034; */
   margin-top: 2rem;
   transition: all 0.3s ease;
 }
@@ -731,8 +731,9 @@
 
 /* B2B Query extra 섹션 스타일 */
 .sidebar-section.page-b2b-query-extra {
-  background-color: #f0f5f7;
-  border-left: 4px solid #0078d4;
+  /* background-color: #f0f5f7; */
+  background-color: #f5f0f2;
+  /* border-left: 4px solid #0078d4; */
   margin-top: 2rem;
   transition: all 0.3s ease;
 }
@@ -742,7 +743,8 @@
 }
 
 .sidebar-b2b-query-extra h3 {
-  color: #0078d4;
+  /* color: #0078d4; */
+  color: #A50034;
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
@@ -764,7 +766,8 @@
   content: '→';
   position: absolute;
   left: -0.8rem;
-  color: #0078d4;
+  /* color: #0078d4; */
+  color: #A50034;
   font-weight: bold;
 }
 
@@ -780,7 +783,8 @@
   color: #333;
   font-size: 1rem;
   margin-bottom: 0.6rem;
-  color: #0078d4;
+  /* color: #0078d4; */
+  color: #A50034;
 }
 
 .b2b-query-extra-info p {
@@ -813,14 +817,16 @@
 .report-link {
   display: block;
   padding: 0.6rem 1rem;
-  background-color: #f0f8ff;
-  color: #0078d4;
+  /* background-color: #f0f8ff; */
+  background-color: #f5f0f2;
+  /* color: #0078d4; */
+  color: #A50034;  
   border-radius: 4px;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.2s;
-  border-left: 3px solid #0078d4;
+  /* border-left: 3px solid #0078d4; */
 }
 
 .report-link:hover {
@@ -882,7 +888,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  border-left: 2px solid #ddd;
+  /* border-left: 2px solid #ddd; */
 }
 
 .submenu li {

@@ -4,7 +4,33 @@ import ChatMessage from '../Chat/ChatMessage';
 import ChatInput from '../Chat/ChatInput';
 import SampleQuestions from '../Chat/SampleQuestions';
 import Spinner from '../UI/Spinner';
-import './Service_D2C_Sales.css';
+import '../ServiceCommon.css';
+
+// D2C 사이드바 내용
+export const SidebarD2CExtra = () => (
+  <div className="sidebar-d2c-extra sidebar-extra-content">
+    <h3>D2C 분석 팁</h3>
+    <ul>
+      <li>이탈 고객 패턴 분석</li>
+      <li>프로모션 효과 분석</li>
+      <li>고객 세그먼트 전략</li>
+    </ul>
+    <div className="d2c-extra-info">
+      <h4>D2C 분석 방법론</h4>
+      <p>고객 데이터를 활용한 인사이트 도출 방법을 알아보세요.</p>
+      <p>고객 행동 패턴을 분석하여 마케팅 전략을 최적화할 수 있습니다.</p>
+    </div>
+    <div className="d2c-extra-tools">
+      <h4>추천 분석 도구</h4>
+      <div className="tool-badges">
+        <span className="tool-badge">Python</span>
+        <span className="tool-badge">R</span>
+        <span className="tool-badge">Tableau</span>
+      </div>
+      <p>다양한 데이터 분석 도구를 활용하여 더 깊은 인사이트를 얻을 수 있습니다.</p>
+    </div>
+  </div>
+);
 
 const Service_D2C_Sales = ({ serviceId, SidebarContent }) => {
   const SERVICE_NAME = {'ko': "D2C - Sales Status 서비스", "en": "D2C - Sales Status Service"};
@@ -184,13 +210,13 @@ const Service_D2C_Sales = ({ serviceId, SidebarContent }) => {
   };
 
   return (
-    <div className="service-d2c-sales-container">
+    <div className="service-container">
       {/* 상단 제목 */}
       <div className="service-header">
         <div className="title-with-lang-toggle">
           <h2 className="main-title">{SERVICE_NAME[language]}</h2>
           <div className="header-controls">
-            <button 
+            {/* <button 
               className="lang-toggle-btn" 
               onClick={toggleLanguage}
               title={language === 'ko' ? 'Switch to English' : '한국어로 전환'}
@@ -203,7 +229,7 @@ const Service_D2C_Sales = ({ serviceId, SidebarContent }) => {
               title={language === 'ko' ? '대화 초기화' : 'Clear conversation'}
             >
               {language === 'ko' ? '초기화' : 'Reset'}
-            </button>
+            </button> */}
           </div>
         </div>
         <div 
