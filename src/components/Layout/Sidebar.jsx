@@ -5,10 +5,21 @@ import ResetButton from '../UI/ResetButton';
 import { SidebarB2BQueryExtra } from '../B2B/Service_B2B_Query';
 import { SidebarD2CExtra } from '../D2C/Service_D2C_Sales';
 import { SidebarD2CFalloutExtra } from '../D2C/Service_D2C_Fallout';
+import { SidebarHRDXQnAExtra } from '../HRDX/Service_HRDX_QnA';
+import { SidebarHRDXRecommandExtra } from '../HRDX/Service_HRDX_Recommand';
+import { SidebarMellerikatAssistantExtra } from '../MelleriAssistant/Service_Mellerikat_Assistant';
+import { SidebarMelleriSearchRegisterExtra } from '../MelleriSearch/Service_MelleriSearch_Register';
+import { SidebarMelleriSearchSearchExtra } from '../MelleriSearch/Service_MelleriSearch_Search';
+import { SidebarSGAnalysisExtra } from '../SurveyGenius/Service_SG_Analysis';
+import { SidebarSGGenerationExtra } from '../SurveyGenius/Service_SG_Generation';
+import { SidebarVOCAnalysisExtra } from '../VOCAnalysis/Service_VOC_Analysis';
 
 const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
   const { sessionState } = useSession();
   const [isPage2MenuOpen, setIsPage2MenuOpen] = useState(activePage === 'page-d2c-main' || activePage === 'page-d2c-sales' || activePage === 'page-d2c-account');
+  const [isHRDXMenuOpen, setIsHRDXMenuOpen] = useState(activePage === 'page-hrdx-main' || activePage === 'page-hrdx-qna' || activePage === 'page-hrdx-recommand');
+  const [isMelleriSearchMenuOpen, setIsMelleriSearchMenuOpen] = useState(activePage === 'page-melleri-search' || activePage === 'page-melleri-search-register' || activePage === 'page-melleri-search-search');
+  const [isSGMenuOpen, setIsSGMenuOpen] = useState(activePage === 'page-survey-genius' || activePage === 'page-sg-analysis' || activePage === 'page-sg-generation');
   
   // 사이드바 안내 정보
   const SIDEBAR_SEARCHING_GUIDE = `
@@ -22,8 +33,38 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
     onSelectPage('page-d2c-main');
   };
 
+  const handleHRDXClick = () => {
+    // 하위 메뉴 토글 (펼치거나 접기)
+    setIsHRDXMenuOpen(!isHRDXMenuOpen);
+    // HRDX 메인 페이지로 이동
+    onSelectPage('page-hrdx-main');
+  };
+
+  const handleMelleriSearchClick = () => {
+    // 하위 메뉴 토글 (펼치거나 접기)
+    setIsMelleriSearchMenuOpen(!isMelleriSearchMenuOpen);
+    // MelleriSearch 메인 페이지로 이동
+    onSelectPage('page-melleri-search');
+  };
+
+  const handleSGClick = () => {
+    // 하위 메뉴 토글 (펼치거나 접기)
+    setIsSGMenuOpen(!isSGMenuOpen);
+    // Survey Genius 메인 페이지로 이동
+    onSelectPage('page-survey-genius');
+  };
+
   const isPage2Active = activePage === 'page-d2c-main' || activePage === 'page-d2c-sales' || activePage === 'page-d2c-account';
   const isPage2Active_sub = activePage === 'page-d2c-sales' || activePage === 'page-d2c-account';
+  
+  const isHRDXActive = activePage === 'page-hrdx-main' || activePage === 'page-hrdx-qna' || activePage === 'page-hrdx-recommand';
+  const isHRDXActive_sub = activePage === 'page-hrdx-qna' || activePage === 'page-hrdx-recommand';
+  
+  const isMelleriSearchActive = activePage === 'page-melleri-search' || activePage === 'page-melleri-search-register' || activePage === 'page-melleri-search-search';
+  const isMelleriSearchActive_sub = activePage === 'page-melleri-search-register' || activePage === 'page-melleri-search-search';
+  
+  const isSGActive = activePage === 'page-survey-genius' || activePage === 'page-sg-analysis' || activePage === 'page-sg-generation';
+  const isSGActive_sub = activePage === 'page-sg-analysis' || activePage === 'page-sg-generation';
 
   return (
     <aside className="sidebar">
@@ -41,6 +82,138 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
             B2B Query
           </li>
           <li
+            className={activePage === 'page-voc-analysis' ? 'active' : ''}
+            onClick={() => onSelectPage('page-voc-analysis')}
+          >
+            VOC Analysis
+          </li>
+          <li
+            className={activePage === 'page-mellerikat-assistant' ? 'active' : ''}
+            onClick={() => onSelectPage('page-mellerikat-assistant')}
+          >
+            Mellerikat Assistant
+          </li>
+          <li
+            className={`submenu-parent ${isSGActive ? 'active' : ''}`}
+            onClick={handleSGClick}
+          >
+            <div className="menu-header">
+              <span>Survey Genius</span>
+              <span className={`menu-arrow ${isSGMenuOpen ? 'open' : ''}`}>
+                ▼
+              </span>
+            </div>
+          </li>
+          
+          {/* Survey Genius 하위 메뉴 */}
+          {isSGMenuOpen && (
+            <div className="submenu-container">
+              <div className={`submenu ${isSGMenuOpen ? 'open' : ''}`}>
+                <ul>
+                  <li 
+                    className={activePage === 'page-sg-generation' ? 'active' : ''}
+                    onClick={(e) => {
+                      e.stopPropagation(); // 상위 메뉴 클릭 이벤트 전파 방지
+                      onSelectPage('page-sg-generation');
+                    }}
+                  >
+                    Survey Genius - 설문 생성 서비스
+                  </li>
+                  <li 
+                    className={activePage === 'page-sg-analysis' ? 'active' : ''}
+                    onClick={(e) => {
+                      e.stopPropagation(); // 상위 메뉴 클릭 이벤트 전파 방지
+                      onSelectPage('page-sg-analysis');
+                    }}
+                  >
+                    Survey Genius - 설문 결과 분석 서비스
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
+          
+          <li
+            className={`submenu-parent ${isMelleriSearchActive ? 'active' : ''}`}
+            onClick={handleMelleriSearchClick}
+          >
+            <div className="menu-header">
+              <span>MelleriSearch</span>
+              <span className={`menu-arrow ${isMelleriSearchMenuOpen ? 'open' : ''}`}>
+                ▼
+              </span>
+            </div>
+          </li>
+          
+          {/* MelleriSearch 하위 메뉴 */}
+          {isMelleriSearchMenuOpen && (
+            <div className="submenu-container">
+              <div className={`submenu ${isMelleriSearchMenuOpen ? 'open' : ''}`}>
+                <ul>
+                  <li 
+                    className={activePage === 'page-melleri-search-search' ? 'active' : ''}
+                    onClick={(e) => {
+                      e.stopPropagation(); // 상위 메뉴 클릭 이벤트 전파 방지
+                      onSelectPage('page-melleri-search-search');
+                    }}
+                  >
+                    MelleriSearch - 검색 서비스
+                  </li>
+                  <li 
+                    className={activePage === 'page-melleri-search-register' ? 'active' : ''}
+                    onClick={(e) => {
+                      e.stopPropagation(); // 상위 메뉴 클릭 이벤트 전파 방지
+                      onSelectPage('page-melleri-search-register');
+                    }}
+                  >
+                    MelleriSearch - 데이터 등록
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
+          
+          <li
+            className={`submenu-parent ${isHRDXActive ? 'active' : ''}`}
+            onClick={handleHRDXClick}
+          >
+            <div className="menu-header">
+              <span>HRDX</span>
+              <span className={`menu-arrow ${isHRDXMenuOpen ? 'open' : ''}`}>
+                ▼
+              </span>
+            </div>
+          </li>
+          
+          {/* HRDX 하위 메뉴 */}
+          {isHRDXMenuOpen && (
+            <div className="submenu-container">
+              <div className={`submenu ${isHRDXMenuOpen ? 'open' : ''}`}>
+                <ul>
+                  <li 
+                    className={activePage === 'page-hrdx-qna' ? 'active' : ''}
+                    onClick={(e) => {
+                      e.stopPropagation(); // 상위 메뉴 클릭 이벤트 전파 방지
+                      onSelectPage('page-hrdx-qna');
+                    }}
+                  >
+                    HRDX - 질의 서비스
+                  </li>
+                  <li 
+                    className={activePage === 'page-hrdx-recommand' ? 'active' : ''}
+                    onClick={(e) => {
+                      e.stopPropagation(); // 상위 메뉴 클릭 이벤트 전파 방지
+                      onSelectPage('page-hrdx-recommand');
+                    }}
+                  >
+                    HRDX - 교육 추천 서비스
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
+          
+          <li
             className={`submenu-parent ${isPage2Active ? 'active' : ''}`}
             onClick={handlePage2Click}
           >
@@ -52,7 +225,7 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
             </div>
           </li>
           
-          {/* 하위 메뉴 - 부모 li 외부로 이동 */}
+          {/* D2C 하위 메뉴 */}
           {isPage2MenuOpen && (
             <div className="submenu-container">
               <div className={`submenu ${isPage2MenuOpen ? 'open' : ''}`}>
@@ -91,14 +264,34 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
       </div> */}
 
       {/* 설정 영역 - B2B Query 또는 DX Automation for D2C의 하위 메뉴가 선택되었을 때 표시 */}
-      {(activePage === 'page-b2b-query' || isPage2Active_sub) && (
+      {(activePage === 'page-b2b-query' || isPage2Active_sub || isHRDXActive_sub || activePage === 'page-mellerikat-assistant' || isMelleriSearchActive_sub || isSGActive_sub || activePage === 'page-voc-analysis') && (
         <div className="sidebar-section settings">
           <h3>설정</h3>
           <div className="setting-item">
-            <LanguageSelector serviceId={serviceId} />
+            <LanguageSelector serviceId={
+              activePage === 'page-hrdx-qna' ? 'llo-hrdx-qna' : 
+              activePage === 'page-hrdx-recommand' ? 'llo-hrdx-recommand' : 
+              activePage === 'page-mellerikat-assistant' ? 'melleri-assistant' : 
+              activePage === 'page-melleri-search-register' ? 'melleri-search-register-demo' : 
+              activePage === 'page-melleri-search-search' ? 'melleri-search-demo' : 
+              activePage === 'page-sg-analysis' ? 'sg-analysis' : 
+              activePage === 'page-sg-generation' ? 'sg-generation' : 
+              activePage === 'page-voc-analysis' ? 'voc-analysis' : 
+              serviceId
+            } />
           </div>
           <div className="setting-item">
-            <ResetButton serviceId={serviceId} />
+            <ResetButton serviceId={
+              activePage === 'page-hrdx-qna' ? 'llo-hrdx-qna' : 
+              activePage === 'page-hrdx-recommand' ? 'llo-hrdx-recommand' : 
+              activePage === 'page-mellerikat-assistant' ? 'melleri-assistant' : 
+              activePage === 'page-melleri-search-register' ? 'melleri-search-register-demo' : 
+              activePage === 'page-melleri-search-search' ? 'melleri-search-demo' : 
+              activePage === 'page-sg-analysis' ? 'sg-analysis' : 
+              activePage === 'page-sg-generation' ? 'sg-generation' : 
+              activePage === 'page-voc-analysis' ? 'voc-analysis' : 
+              serviceId
+            } />
           </div>
         </div>
       )}
@@ -107,6 +300,12 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
       {activePage === 'page-b2b-query' && (
         <div className="sidebar-section page-b2b-query-extra">
           <SidebarB2BQueryExtra />
+        </div>
+      )}
+      
+      {activePage === 'page-voc-analysis' && (
+        <div className="sidebar-section page-voc-analysis-extra">
+          <SidebarVOCAnalysisExtra />
         </div>
       )}
       
@@ -121,6 +320,51 @@ const Sidebar = ({ serviceId, onSelectPage, activePage }) => {
           <SidebarD2CFalloutExtra />
         </div>
       )}
+      
+      {activePage === 'page-hrdx-qna' && (
+        <div className="sidebar-section page-hrdx-qna-extra">
+          <SidebarHRDXQnAExtra />
+        </div>
+      )}
+      
+      {activePage === 'page-hrdx-recommand' && (
+        <div className="sidebar-section page-hrdx-recommand-extra">
+          <SidebarHRDXRecommandExtra />
+        </div>
+      )}
+
+      {activePage === 'page-mellerikat-assistant' && (
+        <div className="sidebar-section page-mellerikat-assistant-extra">
+          <SidebarMellerikatAssistantExtra />
+        </div>
+      )}
+      
+      {activePage === 'page-melleri-search-search' && (
+        <div className="sidebar-section page-melleri-search-search-extra">
+          <SidebarMelleriSearchSearchExtra />
+        </div>
+      )}
+      
+      {activePage === 'page-melleri-search-register' && (
+        <div className="sidebar-section page-melleri-search-register-extra">
+          <SidebarMelleriSearchRegisterExtra />
+        </div>
+      )}
+      
+      {activePage === 'page-sg-analysis' && (
+        <div className="sidebar-section page-sg-analysis-extra">
+          <SidebarSGAnalysisExtra />
+        </div>
+      )}
+      
+      {activePage === 'page-sg-generation' && (
+        <div className="sidebar-section page-sg-generation-extra">
+          <SidebarSGGenerationExtra />
+        </div>
+      )}
+      <div className="sidebar-header">
+        <h2>TOOL</h2>
+      </div>
     </aside>
   );
 };
