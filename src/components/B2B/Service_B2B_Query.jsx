@@ -1,5 +1,5 @@
 import React from 'react';
-import useChat from '../../hooks/useChat';
+import useB2BQuery from '../../hooks/useB2BQuery';
 import ChatMessage from '../Chat/ChatMessage';
 import ChatInput from '../Chat/ChatInput';
 import SampleQuestions from '../Chat/SampleQuestions';
@@ -131,7 +131,7 @@ B2B Query는 DB 탐색 특화 모델로써, 3대 전환 지수뿐 아니라 정�
     bottomRef,
     sendMessage,
     handleSampleQuestion
-  } = useChat(serviceId);
+  } = useB2BQuery(serviceId);
 
   return (
     <div className="service-container">
@@ -161,6 +161,7 @@ B2B Query는 DB 탐색 특화 모델로써, 3대 전환 지수뿐 아니라 정�
               role={message.role}
               content={message.content}
               isError={message.isError}
+              metadata={message.metadata}
             />
           ))}
 
